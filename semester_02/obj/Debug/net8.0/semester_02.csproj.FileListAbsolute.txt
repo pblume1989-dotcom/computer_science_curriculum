@@ -1,0 +1,14 @@
+C:\computer_science_curriculum\semester_02\bin\Debug\net8.0\semester_02.exe
+C:\computer_science_curriculum\semester_02\bin\Debug\net8.0\semester_02.deps.json
+C:\computer_science_curriculum\semester_02\bin\Debug\net8.0\semester_02.runtimeconfig.json
+C:\computer_science_curriculum\semester_02\bin\Debug\net8.0\semester_02.dll
+C:\computer_science_curriculum\semester_02\bin\Debug\net8.0\semester_02.pdb
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\semester_02.GeneratedMSBuildEditorConfig.editorconfig
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\semester_02.AssemblyInfoInputs.cache
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\semester_02.AssemblyInfo.cs
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\semester_02.csproj.CoreCompileInputs.cache
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\semester_02.dll
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\refint\semester_02.dll
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\semester_02.pdb
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\semester_02.genruntimeconfig.cache
+C:\computer_science_curriculum\semester_02\obj\Debug\net8.0\ref\semester_02.dll
