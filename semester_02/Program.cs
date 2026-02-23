@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.Runtime;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Xml.XPath;
 using Semester2.Parsing;
 class Program
 {
@@ -12,14 +13,15 @@ class Program
 
             foreach (string test in testCase)
         {
-            if (CommandParser.TryBuildAction(test, out string action, out string error))
+            var result = CommandParser.TryBuildAction(test, out string action);
+
+            if (!result.Ok)
             {
-                Console.WriteLine($"Input: '{test}' -> Action-String: {action}");
+                Console.WriteLine($"Fehler: [{result.ErrorCode}]: {result.Message}");
+                continue;
             }
-            else
-            {
-                Console.WriteLine($"Input: '{test}' -> Fehler: {error}");
-            }
+
+                Console.WriteLine($"Aktion ausgeführt: {action}");
         }
     }
 }

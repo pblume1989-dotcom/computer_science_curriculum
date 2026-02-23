@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
-
 namespace Semester2.Parsing;
 
 public struct ValidationResult
@@ -22,7 +21,7 @@ public struct ValidationResult
     }
     public static ValidationResult Success()
         {
-            return new ValidationResult(true, "NONE", "SUCCESS");
+            return new ValidationResult(true, "", "");
         }
 
     public static ValidationResult Failure(string code, string msg)

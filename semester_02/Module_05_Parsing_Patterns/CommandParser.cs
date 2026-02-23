@@ -71,14 +71,13 @@ public static class CommandParser
         return true;
     }
 
-    public static bool TryBuildAction(string input, out string action, out string error)
+    public static ValidationResult TryBuildAction(string input, out string action)
     {
         action = "";
-        error = "";
 
-        if (!TryParseCommand(input, out string verb, out string[] args, out error))
+        if (!TryParseCommand(input, out string verb, out string[] args, out string tokenizeError))
         {
-            return false;
+            return ValidationResult.Failure("PARSING_ERROR", tokenizeError);
         }
 
         switch(verb)
@@ -86,23 +85,20 @@ public static class CommandParser
             case "go":
             if (args.Length < 1)
                 {
-                    error = "keine Richtung angegeben.";
-                    return false;
+                    return ValidationResult.Failure("MISSING_ARG", "Wohin willst du gehen?");
                 }
             if (!ValidDirections.Contains(args[0]))
                 {
-                    error = $"'{args[0]}' ist keine gültige Richtung.";
-                    return false;
+                    return ValidationResult.Failure("INVALID_DIRECTION", $"{args[0]} ist keine gültige Richtung.");
                 }
 
                 action = $"GO:{args[0].ToUpperInvariant()}";
-                return true;
+                return ValidationResult.Success();
 
             case "take":
             if (args.Length < 1)
                 {
-                    error = "Kein Item vorhanden";
-                    return false;
+                    return ValidationResult.Failure("MISSING_ARG", "Was willst du aufnehmen?");
                 }
             
             int amount = 1;
@@ -111,27 +107,24 @@ public static class CommandParser
             {
                 if(!int.TryParse(args[1], out amount) || amount <= 0)
                 {
-                    error = $"'{args[1]}'ist keine Zahl.";
-                    return false;
+                    return ValidationResult.Failure("INVALID_AMOUNT", $"'{args[1]}'ist keine gültige ganze Zahl. amount > 0");
                 }
             }
 
             action = $"TAKE:{args[0]}:{amount}";
-            return true;
+            return ValidationResult.Success();
 
             case "say":
             if (args.Length < 1)
                 {
-                    error = "Nichts zu sagen";
-                    return false;
+                    return ValidationResult.Failure("MISSING_ARG", "Was möchtest du sagen");
                 }
 
             action = $"SAY:{string.Join(" ", args)}";
-            return true;
+            return ValidationResult.Success();
 
             default:
-            error = $"Befehl '{verb}' unbekannt.";
-            return false;
+            return ValidationResult.Failure("UNKNOWN_COMMAND", $"Befehl '{verb}' unbekannt.");
         }
     }
 }
