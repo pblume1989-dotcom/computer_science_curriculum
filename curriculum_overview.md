@@ -33,3 +33,15 @@
     - Optimizing performance with O(1) lookups, implementing Registries, "Source of Truth" pattern
 - Modul_05_Deep_Dive_Strings_&_Parsing_Patterns
     - Refining the parsing engine with advanced tokenization and production-grade "Try-Pattern"
+- Modul_06_Error_Handling_&_Validation_Frameworks
+    - Implementing the Result-Pattern, distinguishing Exceptions (Invariants) from Validation (Expected Errors), Error Propagation
+- Modul_07_Enums_&_Type_Safety
+    - Utilizing Enums for Directions and GameStates, eliminating "Magic Strings", Enum.TryParse normalization
+- Modul_08_Object_Representation_&_Logging
+    - Overriding ToString() for debugging, creating "Debug Views" for Player/Inventory, selective Logging patterns
+- Modul_09_Architecture_Light_&_Separation_of_Concerns
+    - Decoupling Logic from I/O, "Compute vs. Apply" principle, introduction to Service-oriented layers
+- Modul_10_Mini-Project_01_Multi-Class_Systems
+    - Building a 3-5 class system (Room, Item, Player, Command), focus on clean interaction and collection management
+- Modul_11_Capstone_Project_Semester_02
+    - Constructing a complex 5-8 class RPG Core Loop, world state management, and architectural scalability
