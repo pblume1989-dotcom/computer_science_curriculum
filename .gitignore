@@ -1,0 +1,17 @@
+# Visual Studio temporäre Dateien
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code Einstellungen (optional, falls du sie nicht teilen willst)
+.vscode/
+
+# Betriebssystem-Müll
+Thumbs.db
+.DS_Store
+# Google Drive Sync Müll
+.tmp.driveupload/
