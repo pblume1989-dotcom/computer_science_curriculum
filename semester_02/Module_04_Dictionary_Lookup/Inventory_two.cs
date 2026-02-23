@@ -1,5 +1,5 @@
 namespace Semester2.LookupSystem;
-
+using Semester2.Parsing;
 public class Inventory
 {
     private Dictionary<string, int> _counts;
@@ -24,18 +24,32 @@ public class Inventory
             _counts.Add(itemId, amount);
     }
 
-    public bool TryRemove(string itemId, int amount = 1)
+    public ValidationResult TryRemove(string itemId, int amount = 1)
     {
-        if (string.IsNullOrWhiteSpace(itemId)) return false;
-        if (amount <= 0) return false;
-        if (!_counts.TryGetValue(itemId, out int current) || current < amount) return false;
+        if (string.IsNullOrWhiteSpace(itemId))
+        {
+            return ValidationResult.Failure("INVALID_ID", "Item-ID darf nicht leer sein.");
+        }
+
+        if (amount <= 0)
+        {
+            return ValidationResult.Failure("INVALID_AMOUNT", "Amount > 0.");
+        }
+        if (!_counts.TryGetValue(itemId, out int current))
+        {
+            return ValidationResult.Failure("ITEM_NOT_FOUND", $"Du besitzt kein '{itemId}'");
+        }
+        if (current < amount)
+        {
+            return ValidationResult.Failure("INSUFFICIENT_STOCK", $"Nicht genug {itemId} vorhande. Besitz: {current}");
+        }
         
         _counts[itemId] -= amount;
 
         if (_counts[itemId] == 0)
         _counts.Remove(itemId);
         
-        return true;
+        return ValidationResult.Success();
     }
 
     public int CountOf(string itemId)
