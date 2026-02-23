@@ -1,5 +1,7 @@
 # Computer Science Curriculum & RPG-Engine
 
+## Start-Date: 2026/01/16
+
 ## About Me
 Professional transition from **Key User / Clerk in the Energy Industry** to **Software Development**. 
 My background in critical infrastructure drives my focus on reliability, data integrity, and structured problem-solving.

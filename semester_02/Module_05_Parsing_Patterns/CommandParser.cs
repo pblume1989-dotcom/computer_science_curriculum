@@ -1,5 +1,5 @@
 using System.Text;
-
+using Semester2.Core;
 namespace Semester2.Parsing;
 
 public static class CommandParser
@@ -126,5 +126,14 @@ public static class CommandParser
             default:
             return ValidationResult.Failure("UNKNOWN_COMMAND", $"Befehl '{verb}' unbekannt.");
         }
+    }
+
+    public static bool TryParseDirection(string raw, out Direction dir)
+    {
+        dir = default;
+
+        if (string.IsNullOrWhiteSpace(raw)) return false;
+
+        return Enum.TryParse<Direction>(raw, ignoreCase: true, out dir);
     }
 }
