@@ -2,6 +2,7 @@ namespace Semester2.Core;
 
 public enum Direction
 {
+    None,
     North,
     East,
     South,
@@ -10,7 +11,16 @@ public enum Direction
 
 public enum GameState
 {
+    None,
     Exploration,
     Combat,
     Dialogue
+}
+
+public enum ActionVerb
+{
+    None,
+    Go,
+    Take,
+    Say
 }

@@ -1,11 +1,10 @@
+using System.Data;
 using System.Text;
 using Semester2.Core;
 namespace Semester2.Parsing;
 
 public static class CommandParser
 {
-    public static readonly string[] ValidDirections = { "north","south","east","west" };
-
     public static bool TryTokenize(string input, out List<string> tokens, out string error)
     {
         tokens = new List<string>();
@@ -27,7 +26,7 @@ public static class CommandParser
                 continue;
             }
 
-            if (c == ' ' && !inQuotes)
+            if (char.IsWhiteSpace(c) && !inQuotes)
             {
                 if (current.Length > 0)
                 {
@@ -61,7 +60,7 @@ public static class CommandParser
         args = [];
         error = "";
 
-        string clean = input?.Trim().ToLowerInvariant() ?? "";
+        string clean = input?.Trim() ?? "";
 
         if (!TryTokenize(clean, out var tokens, out error))
             return false;
@@ -80,22 +79,28 @@ public static class CommandParser
             return ValidationResult.Failure("PARSING_ERROR", tokenizeError);
         }
 
-        switch(verb)
+        if (!TryParseEnum<ActionVerb>(verb, out ActionVerb actionVerb) || actionVerb == ActionVerb.None)
         {
-            case "go":
+            return ValidationResult.Failure("NONE", $"'{verb} ist kein bekannter Befehl");
+        }
+
+        switch(actionVerb)
+        {
+            case ActionVerb.Go:
+
             if (args.Length < 1)
                 {
                     return ValidationResult.Failure("MISSING_ARG", "Wohin willst du gehen?");
                 }
-            if (!ValidDirections.Contains(args[0]))
+            if (!TryParseEnum<Direction>(args[0], out Direction dir) || dir == Direction.None)
                 {
                     return ValidationResult.Failure("INVALID_DIRECTION", $"{args[0]} ist keine gültige Richtung.");
                 }
 
-                action = $"GO:{args[0].ToUpperInvariant()}";
+                action = $"GO:{dir}";
                 return ValidationResult.Success();
 
-            case "take":
+            case ActionVerb.Take:
             if (args.Length < 1)
                 {
                     return ValidationResult.Failure("MISSING_ARG", "Was willst du aufnehmen?");
@@ -107,14 +112,14 @@ public static class CommandParser
             {
                 if(!int.TryParse(args[1], out amount) || amount <= 0)
                 {
-                    return ValidationResult.Failure("INVALID_AMOUNT", $"'{args[1]}'ist keine gültige ganze Zahl. amount > 0");
+                    return ValidationResult.Failure("INVALID_AMOUNT", $"'{args[1]}' ist keine gültige ganze Zahl. amount > 0");
                 }
             }
 
-            action = $"TAKE:{args[0]}:{amount}";
+            action = $"TAKE:{args[0].ToLowerInvariant()}:{amount}";
             return ValidationResult.Success();
 
-            case "say":
+            case ActionVerb.Say:
             if (args.Length < 1)
                 {
                     return ValidationResult.Failure("MISSING_ARG", "Was möchtest du sagen");
@@ -128,12 +133,12 @@ public static class CommandParser
         }
     }
 
-    public static bool TryParseDirection(string raw, out Direction dir)
+    public static bool TryParseEnum<T>(string raw, out T result) where T : struct, Enum
     {
-        dir = default;
+        result = default;
 
         if (string.IsNullOrWhiteSpace(raw)) return false;
 
-        return Enum.TryParse<Direction>(raw, ignoreCase: true, out dir);
+        return Enum.TryParse<T>(raw, ignoreCase: true, out result);
     }
 }
