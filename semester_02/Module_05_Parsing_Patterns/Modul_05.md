@@ -39,3 +39,5 @@ StringBuilder:
 Single Source of truth:
 - Nutzung einer List für valide Befehle
 - private Property-Field
+
+- Wichtig: static in einer Methode -> direkter Zugriff ohne ReferenzObject (new)

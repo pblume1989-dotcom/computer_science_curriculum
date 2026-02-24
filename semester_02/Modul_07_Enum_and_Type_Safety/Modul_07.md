@@ -28,6 +28,7 @@ Ergebnis:
 		  case Direction.North;
 		  //....
 		  break;
+	  }
 - ist im Vergleich zum alten switch ordentlicher
 	- schnelleres finden
 	- einfacheres erweitern / anpassen
@@ -51,3 +52,21 @@ Enums für:
 - geschlossene Mengen (GameState, Direction, VerbType)
 String für:
 - Frei-Text -> Chat; Notizen; Descriptions
+
+- Speichereffizienz eines Enums:
+	- Enums werden als int Gespeichert, was RAM spart im verlgeich zu Strings
+
+- generische Methode
+	- nutzen wenn dieselbe Logik für mehrere Typen genutzt wird
+	- Bsp. ActionVerb, Direction, GameState
+- syntax:
+    public static bool TryParseEnum<T>(string raw, out T result) where T : struct, Enum
+    {
+        result = default;
+
+        if (string.IsNullOrWhiteSpace(raw)) return false;
+
+        return Enum.TryParse<T>(raw, ignoreCase: true, out result);
+    }
+	- <T> als Platzhalter für das entsprechende enum
+	- where T : struct, Enum (sagt: ich packe für das T nur struct und Enum rein)
