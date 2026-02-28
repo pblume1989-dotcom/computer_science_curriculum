@@ -1,27 +1,42 @@
-﻿
-using System.ComponentModel.Design;
-using System.Runtime;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Xml.XPath;
+﻿using Semester2.Fundamentals;
 using Semester2.Parsing;
+using Semester2.Debug;
+
 class Program
 {
-   static void Main()
+    static void Main()
     {
-            string[] testCase = {"go","go up", "take \"iron sword\" 2","take sword -1", "say \"hello world\"", "say", " take sword "};
+        // 1. System-Setup
+        Player hero = new Player("Patrick");
+        Monster orc = new Monster("Ugluk", 20);
+        
+        string[] testCommands = { 
+            "go north", 
+            "take sword 2", 
+            "say \"Hello World\"", 
+            "fly away", // Fehler: Unbekanntes Verb
+            "go nowhere" // Fehler: Ungültige Richtung
+        };
 
-            foreach (string test in testCase)
+        Console.WriteLine("--- STARTE SYSTEM-TEST MODUL 08 ---");
+
+        foreach (string cmd in testCommands)
         {
-            var result = CommandParser.TryBuildAction(test, out string action);
+            
+            var result = CommandParser.TryBuildAction(cmd, out string action);
 
-            if (!result.Ok)
+            GameDebugger.DisplaySystemSnapshot(hero, result);
+
+            if (result.Ok)
             {
-                Console.WriteLine($"Fehler: [{result.ErrorCode}]: {result.Message}");
-                continue;
+                action = result.Message;
+                Console.WriteLine($"[LOGIK] Führe aus: {action}");
             }
-
-                Console.WriteLine($"Aktion ausgeführt: {action}");
         }
+
+        Console.WriteLine("\n--- MONSTER KAMPF TEST ---");
+        orc.TakeDamage(20);
+
+        GameDebugger.DisplaySystemSnapshot(orc, ValidationResult.Success("Monster besiegt!"));
     }
 }

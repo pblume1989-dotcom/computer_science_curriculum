@@ -44,4 +44,9 @@ public class Player
         if (!TrySpendGold(amount))
             throw new InvalidOperationException("Nicht genug Gold.");
     }
+
+    public override string ToString()
+    {
+        return $"Name = {Name} | Gold = {Gold}";
+    }
 }

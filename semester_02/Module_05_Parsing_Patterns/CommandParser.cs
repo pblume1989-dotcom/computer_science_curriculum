@@ -97,8 +97,7 @@ public static class CommandParser
                     return ValidationResult.Failure("INVALID_DIRECTION", $"{args[0]} ist keine gültige Richtung.");
                 }
 
-                action = $"GO:{dir}";
-                return ValidationResult.Success();
+                return ValidationResult.Success($"{actionVerb}:{dir}");
 
             case ActionVerb.Take:
             if (args.Length < 1)
@@ -116,8 +115,8 @@ public static class CommandParser
                 }
             }
 
-            action = $"TAKE:{args[0].ToLowerInvariant()}:{amount}";
-            return ValidationResult.Success();
+            string item = $"{args[0].ToLowerInvariant()}";
+            return ValidationResult.Success($"{actionVerb}:{item}:{amount}");
 
             case ActionVerb.Say:
             if (args.Length < 1)
@@ -125,8 +124,8 @@ public static class CommandParser
                     return ValidationResult.Failure("MISSING_ARG", "Was möchtest du sagen");
                 }
 
-            action = $"SAY:{string.Join(" ", args)}";
-            return ValidationResult.Success();
+            string text = $"{string.Join(" ", args)}";
+            return ValidationResult.Success($"{actionVerb}:{text}");
 
             default:
             return ValidationResult.Failure("UNKNOWN_COMMAND", $"Befehl '{verb}' unbekannt.");

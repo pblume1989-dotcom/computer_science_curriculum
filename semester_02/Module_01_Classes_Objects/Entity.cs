@@ -16,7 +16,7 @@ public class Monster
 
         Name = name;
         Hp = startHp;
-        IsDead = (Hp == 0);
+        IsDead = Hp == 0;
     }
 
     public void TakeDamage(int dmg)
@@ -30,6 +30,11 @@ public class Monster
         Hp = Math.Max(0, Hp -dmg);
 
         if (Hp == 0)
-        IsDead = true;
+            IsDead = true;
+    }
+
+    public override string ToString()
+    {
+        return $"Name = {Name} | HP = {Hp} | IsDead = {IsDead}";
     }
 }

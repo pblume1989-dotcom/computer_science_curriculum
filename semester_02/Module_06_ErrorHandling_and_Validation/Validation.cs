@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 namespace Semester2.Parsing;
 
@@ -19,13 +20,20 @@ public struct ValidationResult
         ErrorCode = error ?? "NONE";
         Message = message ?? "";
     }
-    public static ValidationResult Success()
+    public static ValidationResult Success(string msg = "SUCCESS")
         {
-            return new ValidationResult(true, "", "");
+            return new ValidationResult(true, "NONE", msg);
         }
 
     public static ValidationResult Failure(string code, string msg)
         {
             return new ValidationResult(false, code, msg);
-        }        
+        }
+
+    public override string ToString()
+    {
+        return Ok
+            ? $"[OK] {Message}"
+            : $"[ERR] {ErrorCode}: {Message}";
+    }
 }
