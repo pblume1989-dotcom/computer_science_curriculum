@@ -2,7 +2,7 @@ using Semester2.Fundamentals;
 using Semester2.Parsing;
 
 namespace Semester2.Debug;
-
+//Commit Test
 public static class GameDebugger
 {
     public static bool isEnabled {get; set;} = true;
